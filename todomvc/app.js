@@ -199,7 +199,7 @@
 
   // if you want to expose "app" globally only
   // during end-to-end tests you can guard it using "window.Cypress" flag
-  // if (window.Cypress) {
-  window.app = app
-  // }
+  if (window.Cypress) {
+    window.app = app
+  }
 })()

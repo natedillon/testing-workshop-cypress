@@ -10,10 +10,9 @@
 /* eslint-disable no-unused-vars */
 
 it('starts with zero items (waits)', () => {
+  cy.intercept('/todos').as('myTodos')
   cy.visit('/')
-  // wait 1 second
-  // then check the number of items
-  cy.get('li.todo').should('have.length', 0)
+  cy.wait('@myTodos')
 })
 
 it('starts with zero items', () => {
@@ -32,11 +31,14 @@ it('starts with zero items (stubbed response)', () => {
   // start Cypress network server
   // stub `GET /todos` with []
   // save the stub as an alias
+  cy.intercept('/todos', { todos: [] }).as('myTodos')
 
   // THEN visit the page
   cy.visit('/')
 
   // wait for the route alias
+  cy.wait('@myTodos')
+
   // grab its response body
   // and make sure the body is an empty list
 })

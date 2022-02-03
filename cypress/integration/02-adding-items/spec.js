@@ -16,13 +16,33 @@ it('adds two items', () => {
   //    assert that the new Todo item
   //    has been added added to the list
   // cy.get(...).should('have.length', 2)
+  cy.get('.new-todo').type('buy milk{enter}')
+  cy.contains('li', 'buy milk').should('be.visible')
+  cy.get('.new-todo').type('buy cookies{enter}')
+  cy.contains('li', 'buy cookies').should('be.visible')
 })
+
+const addItem = (text) => {
+  cy.get('.new-todo').type(`${text}{enter}`)
+}
 
 it('can mark an item as completed', () => {
   // adds a few items
+  addItem('pay bills')
+  addItem('go to the gym')
+
   // marks the first item as completed
+  // My answer:
+  // cy.get('.todo:nth-child(1) > .view > .toggle').click()
+  cy.contains('li.todo', 'pay bills').should('exist').find('.toggle').check()
+
   // confirms the first item has the expected completed class
+  // My answer:
+  // cy.get('.todo:nth-child(1)').should('have.class', 'completed')
+  cy.contains('li.todo', 'pay bills').should('have.class', 'completed')
+
   // confirms the other items are still incomplete
+  cy.contains('li.todo', 'go to the gym').should('not.have.class', 'completed')
 })
 
 it('can delete an item', () => {

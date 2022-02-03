@@ -59,6 +59,14 @@ it('puts the todo items into the data store', () => {
   // add a couple of items
   // get the data store
   // check its contents
+
+  addItem('something')
+  addItem('something else')
+
+  cy.window().its('app.$store.state.todos').should('deep.equal', [
+    { title: 'something', completed: false },
+    { title: 'something else', completed: false }
+  ])
 })
 
 it('handles todos with blank title', () => {

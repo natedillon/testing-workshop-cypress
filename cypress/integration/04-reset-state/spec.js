@@ -12,6 +12,10 @@ describe('reset data using XHR call', () => {
     // application should be running at port 3000
     // and the "localhost:3000" is set as "baseUrl" in "cypress.json"
     // TODO call /reset endpoint with POST method and object {todos: []}
+    cy.request('POST', '/reset', {
+      todos: []
+    })
+
     cy.visit('/')
   })
 
@@ -40,6 +44,7 @@ describe('reset data using cy.writeFile', () => {
 describe('reset data using a task', () => {
   beforeEach(() => {
     // TODO call a task to reset data
+    cy.task('resetData')
     cy.visit('/')
   })
 
